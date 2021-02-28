@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  background-color: black;
   height: 100vh;
   width: 100vw;
 }
@@ -61,4 +60,10 @@
 }
 .btn-cls {
   margin-bottom: 20px;
+}
+.info {
+  color: black;
+}
+.infoh2 {
+  font-size: 25px;
 }

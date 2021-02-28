@@ -9,6 +9,7 @@ import {
 import Login from "./Login";
 import SignUp from "./SignUp";
 import HomeScreen from "./HomeScreen";
+import BlockchainInfo from './BlockchainInfo'
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
         <Route path="/signUp">
           <SignUp />
         </Route>
-        <Route path="/">
+        <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/">
+          <BlockchainInfo />
         </Route>
       </Switch>
     </div>

@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { userDataSlice } from "./Store/userDataSlice";
 import { useDispatch } from "react-redux";
-import {SERVER_URL} from './globalMetadata';
+import { SERVER_URL } from "./globalMetadata";
 
 function Login() {
   const dispatch = useDispatch();
+  const [errMsg, setErrMsg] = useState("");
   const history = useHistory();
   const [userData, setUserData] = useState({
     userName: "",
@@ -15,12 +16,14 @@ function Login() {
   });
 
   const updateUserName = (value) => {
+    setErrMsg("");
     const userDataCur = { ...userData };
     userDataCur.userName = value;
     setUserData(userDataCur);
   };
 
   const updateUserPW = (value) => {
+    setErrMsg("");
     const userDataCur = { ...userData };
     userDataCur.password = value;
     setUserData(userDataCur);
@@ -31,12 +34,12 @@ function Login() {
     if (userData.userName.length > 0 && userData.password.length > 0) {
       //As we will be using HTTPS so->> You should always use HTTPS and avoid homebrewed code. SSL will take care of hashing & encryption. That is the ONLY secure method.
       const url = `${SERVER_URL}/login?userName=${userData.userName}&password=${userData.password}`;
-    
+
       const postBody = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       };
-
+      setErrMsg("");
       fetch(url, postBody)
         .then((res) => res.json())
         .then((res) => {
@@ -48,15 +51,16 @@ function Login() {
             dispatch(userDataSlice.actions.addUserData(payload));
             history.push("/home/");
           } else {
+            setErrMsg("Internal Server Error!");
           }
         });
     } else {
-      console.log("not ");
+      setErrMsg("Required Fields Missing!")
     }
   };
   return (
     <div className="login-div">
-      <h2 style={{ color: "white" }}>Login to Mine blocks!</h2>
+      <h2 style={{ color: "black" }}>Login to Mine blocks!</h2>
       <Form>
         <FormGroup>
           <Input
@@ -78,6 +82,7 @@ function Login() {
             onChange={(evt) => updateUserPW(evt.target.value)}
           />
         </FormGroup>
+        <p style={{ color: "red" }}>{errMsg}</p>
         <br />
         <Button onClick={loginHandler}>Log In</Button>
         <Link to="/signup">

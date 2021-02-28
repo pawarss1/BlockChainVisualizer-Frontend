@@ -5,24 +5,28 @@ import { SERVER_URL } from "./globalMetadata";
 
 function SignUp() {
   const history = useHistory();
+  const [errMsg, setErrMsg] = useState("");
   const [userData, setUserData] = useState({
     userEmail: "",
     password: "",
     userName: "",
   });
   const updateUserEmail = (value) => {
+    setErrMsg("");
     const userDataCur = { ...userData };
     userDataCur.userEmail = value;
     setUserData(userDataCur);
   };
 
   const updateUserName = (value) => {
+    setErrMsg("");
     const userDataCur = { ...userData };
     userDataCur.userName = value;
     setUserData(userDataCur);
   };
 
   const updateUserPW = (value) => {
+    setErrMsg("");
     const userDataCur = { ...userData };
     userDataCur.password = value;
     setUserData(userDataCur);
@@ -30,6 +34,7 @@ function SignUp() {
 
   const signUpHandler = (evt) => {
     evt.preventDefault();
+    setErrMsg("");
     if (
       userData.userEmail.trim().length > 0 &&
       userData.password.trim().length > 0
@@ -48,20 +53,19 @@ function SignUp() {
         .then((res) => res.json())
         .then((res) => {
           if (res.success) {
-            console.log(res);
             history.push("/login");
           } else {
-            console.log(res.errorMsg);
+            setErrMsg("Internal Server Error!");
           }
         });
     } else {
-      console.log("not ");
+      setErrMsg("Required Fields Missing!")
     }
   };
 
   return (
     <div className="login-div">
-      <h2 style={{ color: "white" }}>Signup to Mine blocks!</h2>
+      <h2 style={{ color: "black" }}>Signup to Mine blocks!</h2>
       <Form>
         <FormGroup>
           <Input
@@ -95,8 +99,9 @@ function SignUp() {
             onChange={(evt) => updateUserPW(evt.target.value)}
           />
         </FormGroup>
+        <p style={{ color: "red" }}>{errMsg}</p>
         <br />
-        <Link to="/">
+        <Link to="/login">
           <Button>Log In</Button>
         </Link>
         <Button className="btn-padding" onClick={(evt) => signUpHandler(evt)}>
