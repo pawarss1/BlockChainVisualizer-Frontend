@@ -44,6 +44,8 @@ function Login() {
         .then((res) => res.json())
         .then((res) => {
           if (res.loginSuccess) {
+            localStorage.setItem("userName", res.newUser.userName);
+            localStorage.setItem("userEmail", res.newUser.userEmail);
             const payload = {
               userName: res.newUser.userName,
               userEmail: res.newUser.userEmail,

@@ -1,2 +1,2 @@
-const SERVER_URL = "http://localhost:9999";
+const SERVER_URL = "https://bc-backend";
 exports.SERVER_URL = SERVER_URL;

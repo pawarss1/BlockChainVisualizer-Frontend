@@ -38,7 +38,10 @@ function HomeScreen() {
           };
           dispatch(blockDataSlice.actions.addNewBlockList(payload));
         } else {
-          alert("Error!");
+          toast.error("Internal Server Error!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2 * 1000,
+          });
         }
       });
   };
@@ -48,18 +51,23 @@ function HomeScreen() {
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
-          console.log(res);
           const payload = {
             blocks: res.blocks,
           };
           dispatch(blockDataSlice.actions.addNewBlockList(payload));
           setBlockList(res.blocks);
         } else {
-          console.log("You are all caught up..");
+          toast.error("Internal Server Error!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2 * 1000,
+          });
+          // history.push("/login");
         }
       });
   };
   const logout = () => {
+    localStorage.setItem("userName", "");
+    localStorage.setItem("userEmail", "");
     history.push("/login");
     const payload = {
       userName: "",
@@ -69,16 +77,25 @@ function HomeScreen() {
   };
   useEffect(() => {
     if (
+      localStorage.getItem("userName") !== "" &&
+      localStorage.getItem("userEmail") !== ""
+    ) {
+      const payload = {
+        userName: localStorage.getItem("userName"),
+        userEmail: localStorage.getItem("userEmail"),
+      };
+      dispatch(userDataSlice.actions.addUserData(payload));
+      getPostsFromBackend();
+    } else if (
       typeof userData.userName === "undefined" ||
       typeof userData.userEmail === "undefined"
     ) {
       toast.error("Login to Create Blocks!", {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 5 * 1000,
+        autoClose: 2 * 1000,
       });
       history.push("/login");
     }
-    getPostsFromBackend();
   }, []);
   return (
     <div className="block-container">

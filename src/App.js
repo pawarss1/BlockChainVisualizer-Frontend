@@ -1,15 +1,9 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import HomeScreen from "./HomeScreen";
-import BlockchainInfo from './BlockchainInfo'
+import BlockchainInfo from "./BlockchainInfo";
 
 function App() {
   return (
