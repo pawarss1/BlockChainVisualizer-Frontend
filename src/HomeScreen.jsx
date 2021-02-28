@@ -5,11 +5,37 @@ import { blockDataSlice } from "./Store/blockDataSlice";
 import Block from "./Block";
 import { useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
+import BlockCreationBlock from "./BlockCreationBlock";
 
 function HomeScreen() {
   const dispatch = useDispatch();
+  const [newBlockData, setBlockData] = useState("");
   const [blockList, setBlockList] = useState([]);
   const userData = useSelector((globalStore) => globalStore.users);
+  const onAddBtnClick = () => {
+    const url = `${SERVER_URL}/home/blockchain`;
+    setBlockData("");
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({ text: newBlockData }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          setBlockList(res.blocks);
+          const payload = {
+            blockList: res.blocks,
+          };
+          dispatch(blockDataSlice.actions.addNewBlockList(payload));
+        }
+        else {
+            alert("Error!")
+        }
+      });
+  };
   const getPostsFromBackend = () => {
     const url = `${SERVER_URL}/home/blockchain`;
     fetch(url)
@@ -50,12 +76,25 @@ function HomeScreen() {
           <Col>
             {blockList.map((block, index) => {
               return (
-                <div style={{ marginTop: "20px", marginBottom: "20px", }}>
-                  <Block block={block} key={index}/>
+                <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+                  <Block block={block} key={index} />
                   {index !== blockList.length - 1 ? <h2>V</h2> : null}
                 </div>
               );
             })}
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col>
+            <div style={{ marginTop: "20px", marginBottom: "40px" }}>
+              <BlockCreationBlock
+                setBlockData={setBlockData}
+                onAddBtnClick={onAddBtnClick}
+                newBlockData={newBlockData}
+              />
+            </div>
           </Col>
           <Col></Col>
         </Row>

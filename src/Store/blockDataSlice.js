@@ -5,10 +5,10 @@ export const blockDataSlice = createSlice({
   initialState: [],
   reducers: {
     addNewBlockList: (state, action) => {
-      const { postList } = action.payload;
-      let tempPostList = { ...state };
-      tempPostList = postList;
-      return tempPostList;
+      const { blockList } = action.payload;
+      let tempBlockList = { ...state };
+      tempBlockList = blockList;
+      return tempBlockList;
     },
     addNewBlock: (state, action) => {
       const { post } = action.payload;

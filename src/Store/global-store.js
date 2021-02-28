@@ -6,7 +6,7 @@ import { blockDataSlice } from './blockDataSlice';
 
 const rootReducer = combineReducers({
     users: userDataSlice.reducer,
-    blockss: blockDataSlice.reducer,
+    blocks: blockDataSlice.reducer,
 })
 export const store = configureStore({
     reducer:rootReducer,
