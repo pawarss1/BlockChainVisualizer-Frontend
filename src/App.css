@@ -1,0 +1,61 @@
+.App {
+  text-align: center;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+}
+.login-div {
+  margin: auto;
+  position: relative;
+  top: 250px;
+  height: auto;
+  width: 50vw;
+}
+.btn-padding {
+  margin-left: 15px;
+}
+.block-container {
+  background-color: white;
+}
+.block-page {
+  width: auto;
+  border: 1px solid black;
+}
+.profile {
+  border-radius: 50%;
+  float: left;
+  height: 50px;
+  width: 50px;
+  background-color: grey;
+  border: 1px solid rgb(14, 0, 0);
+  margin-left: 5vh;
+  margin-top: 5vh;
+}
+
+.text {
+  margin-top: 10px;
+  text-transform: uppercase;
+  word-wrap: break-word;
+}
+.hash-cls {
+  border: 1px green solid;
+  background-color: rgb(197, 255, 197);
+  margin-left: 12px;
+  width: auto;
+  height: 20px;
+}
+
+.block-name {
+  float: left !important;
+}
+.datetime {
+  font-size: 10px;
+  color: grey;
+}
+.nonce-div {
+  height: 30px;
+  width: 50px;
+  border-radius: 10px;
+  background-color: rgb(219, 216, 216);
+  float: right;
+}
